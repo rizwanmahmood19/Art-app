@@ -61,6 +61,29 @@ const SearchJobScreen = () => {
     );
   }
 
+  const Accept = async (id)=>{
+  
+    const jsonToken = await AsyncStorage.getItem("userData");
+    const transformedData = JSON.parse(jsonToken);
+    console.log(" Get token accepted "+transformedData);
+
+    try {
+      let response = await fetch(`https://arts.graystork.co/api/accept_job/${id}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + transformedData.token,
+      },
+    })
+      let responseJson = await response.json();
+      console.log(responseJson);
+      return responseJson;
+    } catch (error) {
+      console.error(error);
+    }
+  
+}
+
   return (
     <FlatList
       data={date}
@@ -94,7 +117,8 @@ const SearchJobScreen = () => {
                 <Text style={{paddingVertical:2}}>Schedule Date : {item.schedule_date}</Text>
                 
                 <Text style={{paddingVertical:2}}>Schedule Time  : {item.schedule_time}</Text>
-                <TouchableOpacity style={{alignSelf:'center',left:10}} onPress={() => {}}>
+                
+                <TouchableOpacity style={{alignSelf:'center',left:10}} onPress={() => {Accept(item.id)}}>
         <LinearGradient colors={["#0168f8", "#0168f8", "#0168f8"]} style={{ padding: 10, marginTop: 20,alignItems: "center",borderRadius: 5,width: 300,}}>
           <Text style={styles.text}>Accept</Text>
         </LinearGradient>

@@ -61,7 +61,7 @@ const AcceptedScreen = (props) => {
 
 
   const selectItemHandler = (id, title) => {
-    props.navigation.navigate('ImageScreen', {
+    props.navigation.navigate('ImagePicker', {
       productId: id,
       productTitle: title
     });

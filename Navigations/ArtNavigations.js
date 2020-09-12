@@ -36,6 +36,7 @@ const AppNavigate = createStackNavigator(
   const AcceptNavigate = createStackNavigator(
     {
         Accepted:AcceptedScreen,
+        ImagePicker:ImagePickerExample,
         ImageScreen:ImgPicker,
     },
     {
