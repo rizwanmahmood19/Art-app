@@ -1,5 +1,5 @@
-import React from 'react'
-import { View,Text,StyleSheet,AsyncStorage,TouchableOpacity, Platform,SafeAreaView } from 'react-native'
+import React,{useState,useEffect} from 'react'
+import { View,Text,StyleSheet,AsyncStorage,TouchableOpacity, Platform,SafeAreaView ,FlatList} from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import HeaderButton from '../components/UI/HeaderButton';
 import Colors from '../constant/Colors';
@@ -9,14 +9,66 @@ import { MaterialCommunityIcons,MaterialIcons,FontAwesome } from '@expo/vector-i
 import {heightPercentageToDP as hp, widthPercentageToDP as wp,} from '../components/ResponsiveLayout'
 
  const HomeScreen = (props) => {
+  const [date, setData] = useState();
+  const [date1, setData1] = useState();
+
+  useEffect(() => {
+    async function fetchData() {
+      const jsonToken = await AsyncStorage.getItem("userData");
+      const transformedData = JSON.parse(jsonToken);
+      console.log(transformedData);
+
+      fetch("https://arts.graystork.co/api/total-balance", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          Authorization: "Bearer " + transformedData.token,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setData(data.total_balance);
+          console.log(" job "+ data.total_balance);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+    async function fetchData1() {
+      const jsonToken = await AsyncStorage.getItem("userData");
+      const transformedData = JSON.parse(jsonToken);
+      console.log(transformedData);
+
+      fetch("https://arts.graystork.co/api/count-accepted-jobs", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          Authorization: "Bearer " + transformedData.token,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setData1(data.total_accepted_jobs);
+          console.log(" job "+ data.total_accepted_jobs);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+    fetchData1();
+    fetchData();
+    
+  }, []);
+  
     return (
+      
         <SafeAreaView style={styles.contaier}>
           <View style={{flexDirection:'row',padding:0}} >
             <View style={styles.cardView} >
                 <Card style={styles.summary} >
                     <View style={{alignSelf:'center'}} >
                         <Text style={{alignSelf:'center',fontWeight:'bold'}} >Accepted Jobs</Text>
-                        <Text style={{top:10,alignSelf:'center'}} >100</Text>
+    <Text style={{top:10,alignSelf:'center'}} >{date1}</Text>
                     </View >
                 </Card>
             </View>
@@ -24,7 +76,7 @@ import {heightPercentageToDP as hp, widthPercentageToDP as wp,} from '../compone
                 <Card style={styles.summary} >
                   <View style={{alignSelf:'center'}} >
                     <Text style={{fontWeight:'bold',alignSelf:'center'}} >Balance</Text>
-                    <Text style={{top:10,alignSelf:'center'}}>$700</Text>
+    <Text style={{top:10,alignSelf:'center'}}>${date}</Text>
                   </View>
                 </Card>
             </View>
@@ -63,6 +115,7 @@ import {heightPercentageToDP as hp, widthPercentageToDP as wp,} from '../compone
             </TouchableOpacity>
           </View>
         </SafeAreaView>
+        
     )
 };
 
