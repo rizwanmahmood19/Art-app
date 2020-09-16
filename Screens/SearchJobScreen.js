@@ -118,7 +118,7 @@ const SearchJobScreen = () => {
                 
                 <Text style={{paddingVertical:2}}>Schedule Time  : {item.schedule_time}</Text>
                 
-                <TouchableOpacity style={{alignSelf:'center',left:10}} onPress={() => {Accept(item.id)}}>
+      <TouchableOpacity style={{alignSelf:'center',left:10}} onPress={() => {Accept(item.id)}}>
         <LinearGradient colors={["#0168f8", "#0168f8", "#0168f8"]} style={{ padding: 10, marginTop: 20,alignItems: "center",borderRadius: 5,width: 300,}}>
           <Text style={styles.text}>Accept</Text>
         </LinearGradient>

@@ -18,14 +18,14 @@ import { LinearGradient } from "expo-linear-gradient";
 const ImagePickerExample = (props) => {
   const [date, setData] = useState();
   const [isLoading, setisLoading] = useState(true);
-
+  const productId = props.navigation.getParam('productId');
   useEffect(() => {
-    async function fetchData() {
+    async function fetchData(id) {
       const jsonToken = await AsyncStorage.getItem("userData");
       const transformedData = JSON.parse(jsonToken);
       console.log(transformedData);
 
-      fetch("https://arts.graystork.co/api/acceptedjobs", {
+      fetch(`https://arts.graystork.co/api/jobs_details/${productId}`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -52,11 +52,6 @@ const ImagePickerExample = (props) => {
     );
 }
 
-const productId = props.navigation.getParam('productId');
-  // const selectedProduct = useSelector(state =>
-  //   state.products.availableProducts.find(prod => prod.id === productId)
-  // );
-
   return (
     <FlatList
       data={date}
@@ -65,33 +60,43 @@ const productId = props.navigation.getParam('productId');
         return (
           <View key={item.id} style={styles.contaier}>
             
-              <SafeAreaView style={{right:70}} >
-              <View>
-                <Text style={{fontSize:18,fontWeight:'bold',width:60}} >Details</Text>
-              </View>
+              <SafeAreaView style={{right:70,paddingBottom:100}} >
+              
 
               <View style={{ left:"130%",bottom:30 }}>
                 <TouchableOpacity onPress={() => {}} style={{ padding: 10,  borderRadius: 5, width: 100,  backgroundColor: "#56C864",}}>
-                  <Text style={styles.text}>{item.job.job_status}</Text>
+                  <Text style={styles.text}>{item.job_status}</Text>
                 </TouchableOpacity>
               </View>
 
-                
-                <Text style={{paddingVertical:2}}>Job No : {item.job.job_reference_number}</Text>
-                <Text style={{paddingVertical:2}}>Appliances : {item.job.appliances}</Text>
-                
-                
-                <Text style={{paddingVertical:2}}>Brand  : {item.job.brand}</Text>
-                <Text style={{paddingVertical:2}}>Model : {item.job.model}</Text>
+              <View>
+                <Text style={{fontSize:20,fontWeight:'bold',paddingVertical:2,paddingBottom:10}} >Details</Text>
+              </View>
+                <Text style={{paddingVertical:2}}>Job No : {item.job_reference_number}</Text>
+                <Text style={{paddingVertical:2}}>Appliances : {item.appliances}</Text>
                 
                 
-                <Text style={{paddingVertical:2}}>Job Type  : {item.job.job_type}</Text>
-                <Text style={{paddingVertical:2}}>Schedule Date : {item.job.schedule_date}</Text>
-                
-                <Text style={{paddingVertical:2}}>Schedule Time  : {item.job.schedule_time}</Text>
+                <Text style={{paddingVertical:2}}>Brand  : {item.brand}</Text>
+                <Text style={{paddingVertical:2}}>Model : {item.model}</Text>
                 
                 
+                <Text style={{paddingVertical:2}}>Job Type  : {item.job_type}</Text>
+                <Text style={{paddingVertical:2}}>Schedule Date : {item.schedule_date}</Text>
                 
+                <Text style={{paddingVertical:2}}>Schedule Time  : {item.schedule_time}</Text>
+                
+                <Text style={{paddingVertical:2,fontWeight:'bold',fontSize:20,paddingBottom:10,paddingTop:10}}>Customer details</Text>
+                <Text style={{paddingVertical:2}}>Name : {item.customer.name}</Text>
+                <Text style={{paddingVertical:2}}>street : {item.customer.street1}</Text>
+                
+                <Text style={{paddingVertical:2}}>Mobile No  : {item.customer.mobile_no}</Text>
+
+                <Text style={{paddingVertical:2,fontWeight:'bold',fontSize:20,paddingBottom:10,paddingTop:10}}>Charges</Text>
+                <Text style={{paddingVertical:2}}>Mode Of Payment : {item.charge.mode_of_payment}</Text>
+                <Text style={{paddingVertical:2}}>Technician Charges : {item.charge.technician_charges}</Text>
+                <Text style={{paddingVertical:2}}>Schedule Date : {item.charge.service_charges}</Text>
+                
+                <Text style={{paddingVertical:2}}>Schedule Time  : {item.charge.total_amount}</Text>
               </SafeAreaView>
 
             
@@ -111,7 +116,7 @@ ImagePickerExample.navigationOptions = (navData) => {
 
 const styles = StyleSheet.create({
   contaier: {
-    top: 10,
+    top: 0,
     alignItems: "center",
     justifyContent: "center",
   },

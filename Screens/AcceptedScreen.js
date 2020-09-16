@@ -23,7 +23,7 @@ const AcceptedScreen = (props) => {
     async function fetchData() {
       const jsonToken = await AsyncStorage.getItem("userData");
       const transformedData = JSON.parse(jsonToken);
-      console.log(transformedData);
+      //console.log(transformedData);
 
       fetch("https://arts.graystork.co/api/acceptedjobs", {
         method: "POST",
@@ -59,11 +59,10 @@ const AcceptedScreen = (props) => {
     );
   }
 
-
-  const selectItemHandler = (id, title) => {
-    props.navigation.navigate('ImagePicker', {
+//ImageScreen
+  const selectItemHandler = (id) => {
+    props.navigation.navigate('Popup', {
       productId: id,
-      productTitle: title
     });
   };
 
@@ -103,7 +102,7 @@ const AcceptedScreen = (props) => {
                 
                 
                 <View style={{ left:"130%",bottom:30 }}>
-                <TouchableOpacity onPress={() => {selectItemHandler(item.job.id, item.job.job_type);}} style={{ padding: 10,  borderRadius: 5, width: 100,  backgroundColor: "#0168f8",}}>
+                <TouchableOpacity onPress={() => {selectItemHandler(item.job.id);}} style={{ padding: 10,  borderRadius: 5, width: 100,  backgroundColor: "#0168f8",}}>
                   <Text style={styles.text}> View</Text>
                 </TouchableOpacity>
               </View>

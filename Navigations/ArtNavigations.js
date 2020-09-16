@@ -9,6 +9,8 @@ import AcceptedScreen from '../Screens/AcceptedScreen'
 import SearchJobScreen from '../Screens/SearchJobScreen'
 import ImgPicker from '../components/ImgPicker'
 import ImagePickerExample from '../Screens/JobViewCamera'
+import PopupScreen from '../Screens/PopupScreen'
+import BalanceScreen from '../Screens/BalanceScreen';
 import Colors from '../constant/Colors';
 
 const defaultNavOptions = {
@@ -38,6 +40,15 @@ const AppNavigate = createStackNavigator(
         Accepted:AcceptedScreen,
         ImagePicker:ImagePickerExample,
         ImageScreen:ImgPicker,
+        Popup:PopupScreen,
+    },
+    {
+      defaultNavigationOptions: defaultNavOptions
+    }
+  );
+  const BlanceNavigate = createStackNavigator(
+    {
+        Balance:BalanceScreen
     },
     {
       defaultNavigationOptions: defaultNavOptions
@@ -47,6 +58,7 @@ const AppNavigate = createStackNavigator(
     {
         Home: HomeScreen,
         Accepted:AcceptNavigate,
+        Balance:BlanceNavigate,
         Search:SearchJobScreen,
         ImagePicker:ImagePickerExample,
     },
@@ -82,8 +94,6 @@ const AppNavigate = createStackNavigator(
   };
   
   }
-  
-  
 
   const MainNavigator = createSwitchNavigator({
     Auth:AuthLoadingScreen,
