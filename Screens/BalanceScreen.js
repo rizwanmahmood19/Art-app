@@ -7,10 +7,20 @@ const BalanceScreen = props =>{
     const [totalBalance, setTotalBalance] = useState();
     const [service_charges, setService_charges] = useState();
     const [technician_charges,setTechnician_charges] = useState();
+
+    const [ViewBalance,setViewBalance] = useState();
  
     const tableHead= [totalBalance, service_charges, technician_charges, 'Head4', 'Head5', 'Head6', 'Head7', 'Head8', 'Head9'];
     const widthArr= [40, 60, 80, 100, 120, 140, 160, 180, 200];
-
+    const data12 = [
+      ['ADBE', '4', '$270.45', '$1,081.80', '$278.25', '$1,113.00', '$1,081.80', '$278.25', '$1,113.00'],
+      ['AAPL', '9', '$180.18', '$1,621.62', '$178.35', '$1,605.15'],
+      ['GOOGL', '3', '$1,023.58', '$3,070.74', '$1,119.94', '$3,359.82'],
+      ['AIR', '10', '$113.12', '$1,131.20', '$116.64', '$1,166.40'],
+      ['MSFT', '6', '$129.89', '$779.34', '$126.18', '$757.08']
+    ]
+    console.log(ViewBalance);
+    
     
     const tableData = [];
     for (let i = 0; i < 30; i += 1) {
@@ -85,6 +95,29 @@ const BalanceScreen = props =>{
             console.error("Error:", error);
           });
       }
+
+      async function fetchData3() {
+        const jsonToken = await AsyncStorage.getItem("userData");
+        const transformedData = JSON.parse(jsonToken);
+        //console.log(transformedData);
+  
+        fetch("https://arts.graystork.co/api/view-balance", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            Authorization: "Bearer " + transformedData.token,
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            setViewBalance(data.data);
+            //console.log(" job "+ data.total_accepted_jobs);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+      fetchData3();
       fetchData2();
       fetchData1();
       fetchData();
@@ -92,6 +125,7 @@ const BalanceScreen = props =>{
     }, []);
 
     return (
+
       <View style={styles.container}>
           <View  >
            <Text style={{fontWeight:'bold',paddingBottom:'5%'}} >TOTAL : ${totalBalance}</Text>
@@ -107,12 +141,12 @@ const BalanceScreen = props =>{
             <ScrollView style={styles.dataWrapper}>
               <Table borderStyle={{borderWidth: 1, borderColor: '#C1C0B9'}}>
                 {
-                  tableData.map((rowData, index) => (
+                  data12.map((rowData, index) => (
                     <Row
                       key={index}
                       data={rowData}
                       widthArr={widthArr}
-                      style={[styles.row, index%2 && {backgroundColor: '#F7F6E7'}]}
+                      style={[styles.row, index%2 && {backgroundColor: '#FFF'}]}
                       textStyle={styles.text}
                     />
                   ))
@@ -122,7 +156,8 @@ const BalanceScreen = props =>{
           </View>
         </ScrollView>
       </View>
-    )
+   
+   )
   
 }
 

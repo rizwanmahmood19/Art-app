@@ -10,6 +10,7 @@ import SearchJobScreen from '../Screens/SearchJobScreen'
 import ImgPicker from '../components/ImgPicker'
 import ImagePickerExample from '../Screens/JobViewCamera'
 import PopupScreen from '../Screens/PopupScreen'
+import AcceptedViewScreen from '../Screens/AcceptedViewScreen'
 import BalanceScreen from '../Screens/BalanceScreen';
 import Colors from '../constant/Colors';
 
@@ -41,6 +42,7 @@ const AppNavigate = createStackNavigator(
         ImagePicker:ImagePickerExample,
         ImageScreen:ImgPicker,
         Popup:PopupScreen,
+        //AcceptedView : AcceptedViewScreen,
     },
     {
       defaultNavigationOptions: defaultNavOptions

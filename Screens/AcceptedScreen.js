@@ -60,8 +60,11 @@ const AcceptedScreen = (props) => {
   }
 
 //ImageScreen
+//Popup
+//AcceptedView
+//ImagePicker
   const selectItemHandler = (id) => {
-    props.navigation.navigate('Popup', {
+    props.navigation.navigate('ImageScreen', {
       productId: id,
     });
   };

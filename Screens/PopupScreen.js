@@ -81,7 +81,7 @@ const submitDonation = async (id) => {
         return (
     <View style={styles.container} >
       
-    <View style={{alignSelf:'center'}} >
+    <View style={{alignSelf:'center',}} >
       
     
 <View >
@@ -107,7 +107,7 @@ const submitDonation = async (id) => {
           
     </View>
 
-<TouchableOpacity style={{alignSelf:'center',top:20}} onPress={()=>{submitDonation(item.charge.job_id);}}>
+<TouchableOpacity style={{alignSelf:'center',top:20,paddingBottom:60}} onPress={()=>{submitDonation(item.charge.job_id);}}>
         <LinearGradient colors={["#0168f8", "#0168f8", "#0168f8"]} style={{ padding: 15, marginTop: 10, alignItems: "center", borderRadius: 5, width: 300,}}>
           <Text style={styles.text}>SAVE</Text>
         </LinearGradient>
@@ -128,7 +128,7 @@ PopupScreen.navigationOptions = navData => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop:"30%"
+    paddingTop:"30%",
   },
   fe:{
     borderColor:"blue",borderWidth:1,width:100
