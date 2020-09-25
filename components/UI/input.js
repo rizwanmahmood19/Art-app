@@ -74,7 +74,7 @@ const Input = props => {
         style={styles.input}
         value={inputState.value}
         onChangeText={textChangeHandler}
-        placeholderTextColor="white"
+        placeholderTextColor="#A1A1A1"
         onBlur={lostFocusHandler}
       />
       {!inputState.isValid && inputState.touched && (
@@ -96,10 +96,12 @@ const styles = StyleSheet.create({
     color:"black"
   },
   input: {
-    paddingHorizontal: 5,
-    paddingVertical: 5,
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: "black",
+    width: 250,
+    paddingLeft: 8,
+    height: Platform.OS === "android" ? 30 : 30,
   },
   errorContainer: {
     marginVertical: 5
